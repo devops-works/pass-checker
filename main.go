@@ -4,8 +4,10 @@ import (
 	"crypto/sha1"
 	"flag"
 	"fmt"
+	"io/ioutil"
 	"math/big"
 	"net/http"
+	"strings"
 	"syscall"
 
 	passwordvalidator "github.com/lane-c-wagner/go-password-validator"
@@ -22,7 +24,7 @@ func main() {
 	p := getPassword()
 	entropy := getEntropy(p)
 	fmt.Printf("\nEntropy: %.3f bits\nTime before guaranteed successful crack : %s\n", entropy, getCrackDuration(entropy, g))
-	callAPI(getSHA1Sum(p)[0:5])
+	callAPI(getSHA1Sum(p))
 }
 
 func getPassword() string {
@@ -74,12 +76,25 @@ func getSHA1Sum(p string) string {
 	return fmt.Sprintf("%x", sha1.Sum([]byte(p)))
 }
 
-func callAPI(hash string) {
-	resp, err := http.Get("https://api.pwnedpasswords.com/range/" + hash)
+func callAPI(h string) {
+	r, err := http.Get("https://api.pwnedpasswords.com/range/" + h[0:5])
 	if err != nil {
 		log.Errorf("an error occured while contacting API : %v", err)
+		return
 	}
-	defer resp.Body.Close()
+	defer r.Body.Close()
 
-	fmt.Println(resp.StatusCode) // debug
+	if r.StatusCode != 200 {
+		log.Errorf("HTTP status code is not 200")
+		return
+	}
+
+	body, err := ioutil.ReadAll(r.Body)
+	if err != nil {
+		log.Errorf("an error occured while reading response body : %v", err)
+		return
+	}
+	if strings.Contains(string(body), strings.ToUpper(h)[5:]) {
+		fmt.Println("Your password's hash exists in HaveIBeenPwnd database.")
+	}
 }
