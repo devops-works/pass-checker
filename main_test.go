@@ -61,3 +61,28 @@ func Test_getCrackDuration(t *testing.T) {
 		})
 	}
 }
+
+func Test_getSHA1Sum(t *testing.T) {
+	tests := []struct {
+		name string
+		p    string
+		want string
+	}{
+		{
+			name: "toto", p: "toto", want: "0b9c2625dc21ef05f6ad4ddf47c5f203837aa32c",
+		},
+		{
+			name: "password123", p: "password123", want: "cbfdac6008f9cab4083784cbd1874f76618d2a97",
+		},
+		{
+			name: "xkcd", p: "correcthorsebatterystable", want: "ca16ce18e0877508a32cd678de36c44982930e29",
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := getSHA1Sum(tt.p); got != tt.want {
+				t.Errorf("getSHA1Sum() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}

@@ -1,6 +1,7 @@
 package main
 
 import (
+	"crypto/sha1"
 	"flag"
 	"fmt"
 	"math/big"
@@ -19,6 +20,7 @@ func main() {
 	p := getPassword()
 	entropy := getEntropy(p)
 	fmt.Printf("\nEntropy: %.3f bits\nTime before guaranteed successful crack : %s\n", entropy, getCrackDuration(entropy, g))
+	fmt.Println(getSHA1Sum(p))
 }
 
 func getPassword() string {
@@ -64,4 +66,8 @@ func getCrackDuration(e float64, g int64) string {
 	}
 
 	return y.String() + "y " + d.String() + "d " + h.String() + "h " + m.String() + "m " + s.String() + "s"
+}
+
+func getSHA1Sum(p string) string {
+	return fmt.Sprintf("%x", sha1.Sum([]byte(p)))
 }
