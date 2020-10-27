@@ -17,7 +17,7 @@ $ go build .
 ### Run
 
 ```
-./pass-checker [options]
+$ ./pass-checker [options]
 
 options:
     -g
