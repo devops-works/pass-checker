@@ -23,7 +23,9 @@ func main() {
 
 	p := getPassword()
 	entropy := getEntropy(p)
+
 	fmt.Printf("\nEntropy: %.3f bits\nTime before guaranteed successful crack : %s\n", entropy, getCrackDuration(entropy, g))
+
 	callAPI(getSHA1Sum(p))
 }
 
