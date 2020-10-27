@@ -25,6 +25,10 @@ options:
         default: 1000000000
 ```
 
+### Demo
+
+[![asciicast](https://asciinema.org/a/fJ8ZUt69EsbEcl13cLgiLeYGD.svg)](https://asciinema.org/a/fJ8ZUt69EsbEcl13cLgiLeYGD)
+
 ## Licence
 
 [MIT](https://choosealicense.com/licenses/mit/)
