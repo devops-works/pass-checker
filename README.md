@@ -27,7 +27,7 @@ options:
 
 ### Demo
 
-<script id="asciicast-fJ8ZUt69EsbEcl13cLgiLeYGD" src="https://asciinema.org/a/fJ8ZUt69EsbEcl13cLgiLeYGD.js" async></script>
+[![asciicast](https://asciinema.org/a/fJ8ZUt69EsbEcl13cLgiLeYGD.svg)](https://asciinema.org/a/fJ8ZUt69EsbEcl13cLgiLeYGD)
 
 ## Licence
 
