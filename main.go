@@ -18,7 +18,7 @@ import (
 
 func main() {
 	var g int64
-	flag.Int64Var(&g, "g", 1000000000, "guesses per second (default: 1.000.000.000)")
+	flag.Int64Var(&g, "g", 1000000000, "guesses per second (default: 1000000000)")
 	flag.Parse()
 
 	p := getPassword()
