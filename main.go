@@ -105,6 +105,6 @@ func callAPI(h string) {
 	}
 
 	if strings.Contains(string(body), strings.ToUpper(h)[5:]) {
-		fmt.Println("Your password's hash exists in HaveIBeenPwnd database.")
+		fmt.Println("Your password's hash exists in HaveIBeenPwned database.")
 	}
 }

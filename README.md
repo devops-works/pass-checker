@@ -1,6 +1,6 @@
 # pass-checker
 
-Get the entropy of your password, the maximum time needed to break it, and if the SHA1 sum appears in HaveIBeenPwnd API.
+Get the entropy of your password, the maximum time needed to break it, and if the SHA1 sum appears in HaveIBeenPwned API.
 
 ## Usage
 
