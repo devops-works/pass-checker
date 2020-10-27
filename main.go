@@ -96,6 +96,7 @@ func callAPI(h string) {
 		log.Errorf("an error occured while reading response body : %v", err)
 		return
 	}
+
 	if strings.Contains(string(body), strings.ToUpper(h)[5:]) {
 		fmt.Println("Your password's hash exists in HaveIBeenPwnd database.")
 	}
