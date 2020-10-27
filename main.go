@@ -5,11 +5,13 @@ import (
 	"flag"
 	"fmt"
 	"math/big"
+	"net/http"
 	"syscall"
 
-	"golang.org/x/crypto/ssh/terminal"
-
 	passwordvalidator "github.com/lane-c-wagner/go-password-validator"
+	log "github.com/sirupsen/logrus"
+
+	"golang.org/x/crypto/ssh/terminal"
 )
 
 func main() {
@@ -69,4 +71,12 @@ func getCrackDuration(e float64, g int64) string {
 
 func getSHA1Sum(p string) string {
 	return fmt.Sprintf("%x", sha1.Sum([]byte(p)))
+}
+
+func callAPI(hash string) {
+	resp, err := http.Get("https://api.pwnedpasswords.com/range/" + hash)
+	if err != nil {
+		log.Errorf("an error occured while contacting API : %v", err)
+	}
+	defer resp.Body.Close()
 }
