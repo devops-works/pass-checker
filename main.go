@@ -30,7 +30,7 @@ func main() {
 }
 
 func getPassword() string {
-	fmt.Print("Enter Password: ")
+	fmt.Print("Enter password: ")
 	bytePassword, err := terminal.ReadPassword(int(syscall.Stdin))
 	if err != nil {
 		log.Fatalf("error reading password from stdin: %v", err)
@@ -72,7 +72,13 @@ func getCrackDuration(e float64, g int64) string {
 		return d.String() + "d " + h.String() + "h " + m.String() + "m " + s.String() + "s"
 	}
 
-	return y.String() + "y " + d.String() + "d " + h.String() + "h " + m.String() + "m " + s.String() + "s"
+	mil := big.NewInt(0).Div(y, big.NewInt(1000))
+	y = y.Mod(y, big.NewInt(1000))
+	if mil.String() == "0" {
+		return y.String() + "y " + d.String() + "d " + h.String() + "h " + m.String() + "m " + s.String() + "s"
+	}
+
+	return m.String() + "mil " + y.String() + "y " + d.String() + "d " + h.String() + "h " + m.String() + "m " + s.String() + "s"
 }
 
 func getSHA1Sum(p string) string {
