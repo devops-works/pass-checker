@@ -22,6 +22,7 @@ func main() {
 	p := getPassword()
 	entropy := getEntropy(p)
 	fmt.Printf("\nEntropy: %.3f bits\nTime before guaranteed successful crack : %s\n", entropy, getCrackDuration(entropy, g))
+	callAPI(getSHA1Sum(p)[0:5])
 }
 
 func getPassword() string {
@@ -79,4 +80,6 @@ func callAPI(hash string) {
 		log.Errorf("an error occured while contacting API : %v", err)
 	}
 	defer resp.Body.Close()
+
+	fmt.Println(resp.StatusCode) // debug
 }
