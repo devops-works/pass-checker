@@ -6,13 +6,15 @@ Get the entropy of your password, the maximum time needed to break it, and if th
 
 ### Installation and compilation
 
-Go is needed.
+If you have Golang, you can clone the repo and build it locally :
 
 ```
 $ git clone https://github.com/devops-works/pass-checker.git
 $ cd pass-checker/
 $ go build .
 ```
+
+Else, you can get the binary from the releases.
 
 ### Run
 

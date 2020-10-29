@@ -16,10 +16,16 @@ import (
 	"golang.org/x/crypto/ssh/terminal"
 )
 
+var (
+	Version   string
+	BuildDate string
+)
+
 func main() {
 	var g int64
 	flag.Int64Var(&g, "g", 1000000000, "guesses per second (default: 1000000000)")
 	flag.Parse()
+	fmt.Printf("pass-checker %s (built %s)\n", Version, BuildDate)
 
 	p := getPassword()
 	entropy := getEntropy(p)
