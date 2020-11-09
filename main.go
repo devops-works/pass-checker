@@ -1,12 +1,15 @@
 package main
 
 import (
+	"bufio"
 	"crypto/sha1"
 	"flag"
 	"fmt"
+	"io"
 	"io/ioutil"
 	"math/big"
 	"net/http"
+	"os"
 	"strings"
 	"syscall"
 
@@ -17,7 +20,9 @@ import (
 )
 
 var (
-	Version   string
+	// Version holds build version
+	Version string
+	// BuildDate holds build date
 	BuildDate string
 )
 
@@ -27,7 +32,28 @@ func main() {
 	flag.Parse()
 	fmt.Printf("pass-checker %s (built %s)\n", Version, BuildDate)
 
-	p := getPassword()
+	stat, _ := os.Stdin.Stat()
+	var p string
+
+	if (stat.Mode() & os.ModeCharDevice) == 0 {
+		// the input is piped
+		r := bufio.NewReader(os.Stdin)
+
+		var output []rune
+		for {
+			input, _, err := r.ReadRune()
+			if err != nil && err == io.EOF {
+				break
+			}
+			output = append(output, input)
+		}
+
+		p = strings.Replace(string(output), "\n", "", -1)
+	} else {
+		// get the input from the terminal
+		p = getPassword()
+	}
+
 	entropy := getEntropy(p)
 
 	fmt.Printf("\nEntropy: %.3f bits\nTime before guaranteed successful crack : %s\n", entropy, getCrackDuration(entropy, g))
