@@ -30,6 +30,7 @@ func main() {
 	var g int64
 	flag.Int64Var(&g, "g", 1000000000, "guesses per second (default: 1000000000)")
 	flag.Parse()
+
 	fmt.Printf("pass-checker %s (built %s)\n", Version, BuildDate)
 
 	stat, _ := os.Stdin.Stat()
@@ -56,13 +57,13 @@ func main() {
 
 	entropy := getEntropy(p)
 
-	fmt.Printf("\nEntropy: %.3f bits\nTime before guaranteed successful crack : %s\n", entropy, getCrackDuration(entropy, g))
+	fmt.Printf("Entropy: %.3f bits\nTime before guaranteed successful crack : %s\n", entropy, getCrackDuration(entropy, g))
 
 	callAPI(getSHA1Sum(p))
 }
 
 func getPassword() string {
-	fmt.Print("Enter password: ")
+	fmt.Print("Enter password:\n")
 	bytePassword, err := terminal.ReadPassword(int(syscall.Stdin))
 	if err != nil {
 		log.Fatalf("error reading password from stdin: %v", err)
