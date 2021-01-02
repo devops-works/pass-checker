@@ -63,7 +63,7 @@ func main() {
 }
 
 func getPassword() string {
-	fmt.Print("Enter password:\n")
+	fmt.Print("Enter password: ")
 	bytePassword, err := terminal.ReadPassword(int(syscall.Stdin))
 	if err != nil {
 		log.Fatalf("error reading password from stdin: %v", err)
